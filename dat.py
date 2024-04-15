@@ -1,16 +1,24 @@
- 
-# import pandas with shortcut 'pd' 
-import pandas as pd 
 
-# read_csv function which is used to read the required CSV file 
-data = pd.read_csv('games.csv') 
+def plot_pie_chart(values):
+    total = sum(values)
+    fractions = [value / total for value in values]
 
-# display 
+    # Colors
+    colors = ['#ff5733', '#33ff57', '#5733ff', '#33ffff']  # You can adjust colors as needed
 
-# drop function which is used in removing or deleting rows or columns from the CSV files 
-data.drop("Genres", inplace=True, axis=1 )
-data.drop("Publisher",inplace=True, axis=1)
-# display 
-file=open("game1.csv","w+")
-file.write(data)
-file.close()
+    # Plot
+    plt.figure(figsize=(8, 8))
+    wedges, _, autotexts = plt.pie(values, colors=colors, autopct='%1.1f%%', startangle=140)
+    plt.title('Pie Chart')
+    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    # Specify the coordinates for text
+    text_x = 0
+    text_y = -1.2
+
+    # Display values and fractions at specified coordinates
+    for value, fraction in zip(values, fractions):
+        plt.text(text_x, text_y, f'{value} / {total} ({fraction:.2f})', ha='center')
+        text_y += 0.2  # Increment y-coordinate for next text line
+
+    plt.show()
